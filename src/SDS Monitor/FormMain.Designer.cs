@@ -57,8 +57,14 @@
             this.btn_Connect = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.iapText = new System.Windows.Forms.TextBox();
+            this.iatText = new System.Windows.Forms.TextBox();
+            this.ectText = new System.Windows.Forms.TextBox();
+            this.tpText = new System.Windows.Forms.TextBox();
+            this.rpmText = new System.Windows.Forms.TextBox();
             this.lb_MODE = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.led_FAN = new Bulb.LedBulb();
             this.label10 = new System.Windows.Forms.Label();
             this.dgv_Data = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,7 +84,12 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.led_EXS = new Bulb.LedBulb();
             this.label19 = new System.Windows.Forms.Label();
+            this.led_EXC = new Bulb.LedBulb();
+            this.led_NT = new Bulb.LedBulb();
+            this.led_CLT = new Bulb.LedBulb();
+            this.led_SRL = new Bulb.LedBulb();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -94,6 +105,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.aG_TP = new AGaugeApp.AGauge();
+            this.aG_IAP = new AGaugeApp.AGauge();
+            this.aG_IAT = new AGaugeApp.AGauge();
+            this.aG_ECT = new AGaugeApp.AGauge();
+            this.aG_RPM = new AGaugeApp.AGauge();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.lb_ELM = new System.Windows.Forms.Label();
@@ -103,23 +119,8 @@
             this.tDecay = new System.Windows.Forms.Timer(this.components);
             this.label20 = new System.Windows.Forms.Label();
             this.cbTarget = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.rpmText = new System.Windows.Forms.TextBox();
-            this.tpText = new System.Windows.Forms.TextBox();
-            this.ectText = new System.Windows.Forms.TextBox();
-            this.iatText = new System.Windows.Forms.TextBox();
-            this.iapText = new System.Windows.Forms.TextBox();
-            this.led_FAN = new Bulb.LedBulb();
-            this.led_EXS = new Bulb.LedBulb();
-            this.led_EXC = new Bulb.LedBulb();
-            this.led_NT = new Bulb.LedBulb();
-            this.led_CLT = new Bulb.LedBulb();
-            this.led_SRL = new Bulb.LedBulb();
-            this.aG_TP = new AGaugeApp.AGauge();
-            this.aG_IAP = new AGaugeApp.AGauge();
-            this.aG_IAT = new AGaugeApp.AGauge();
-            this.aG_ECT = new AGaugeApp.AGauge();
-            this.aG_RPM = new AGaugeApp.AGauge();
+            this.ckb_EnableLogging = new System.Windows.Forms.CheckBox();
+            this.ckb_LogAllCommunication = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Data)).BeginInit();
             this.SuspendLayout();
@@ -253,6 +254,65 @@
             this.panel1.Size = new System.Drawing.Size(760, 416);
             this.panel1.TabIndex = 10;
             // 
+            // iapText
+            // 
+            this.iapText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.iapText.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.iapText.Location = new System.Drawing.Point(57, 377);
+            this.iapText.Name = "iapText";
+            this.iapText.ReadOnly = true;
+            this.iapText.Size = new System.Drawing.Size(100, 15);
+            this.iapText.TabIndex = 35;
+            this.iapText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // iatText
+            // 
+            this.iatText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.iatText.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.iatText.Location = new System.Drawing.Point(310, 251);
+            this.iatText.Name = "iatText";
+            this.iatText.ReadOnly = true;
+            this.iatText.Size = new System.Drawing.Size(60, 15);
+            this.iatText.TabIndex = 34;
+            this.iatText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ectText
+            // 
+            this.ectText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ectText.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.ectText.Location = new System.Drawing.Point(470, 251);
+            this.ectText.Name = "ectText";
+            this.ectText.ReadOnly = true;
+            this.ectText.Size = new System.Drawing.Size(60, 15);
+            this.ectText.TabIndex = 33;
+            this.ectText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tpText
+            // 
+            this.tpText.BackColor = System.Drawing.SystemColors.Control;
+            this.tpText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tpText.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.tpText.Location = new System.Drawing.Point(630, 251);
+            this.tpText.Name = "tpText";
+            this.tpText.ReadOnly = true;
+            this.tpText.Size = new System.Drawing.Size(60, 15);
+            this.tpText.TabIndex = 32;
+            this.tpText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tpText.TextChanged += new System.EventHandler(this.tpText_TextChanged);
+            // 
+            // rpmText
+            // 
+            this.rpmText.BackColor = System.Drawing.SystemColors.Control;
+            this.rpmText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rpmText.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.rpmText.Location = new System.Drawing.Point(116, 154);
+            this.rpmText.Multiline = true;
+            this.rpmText.Name = "rpmText";
+            this.rpmText.ReadOnly = true;
+            this.rpmText.Size = new System.Drawing.Size(65, 28);
+            this.rpmText.TabIndex = 31;
+            this.rpmText.TextChanged += new System.EventHandler(this.rpmText_TextChanged);
+            // 
             // lb_MODE
             // 
             this.lb_MODE.Font = new System.Drawing.Font("MS Reference Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -271,6 +331,17 @@
             this.label13.Size = new System.Drawing.Size(79, 28);
             this.label13.TabIndex = 29;
             this.label13.Text = "MODE";
+            // 
+            // led_FAN
+            // 
+            this.led_FAN.Color = System.Drawing.Color.LavenderBlush;
+            this.led_FAN.Location = new System.Drawing.Point(500, 384);
+            this.led_FAN.Name = "led_FAN";
+            this.led_FAN.On = true;
+            this.led_FAN.Padding = new System.Windows.Forms.Padding(5);
+            this.led_FAN.Size = new System.Drawing.Size(28, 28);
+            this.led_FAN.TabIndex = 28;
+            this.led_FAN.Text = "ledBulb1";
             // 
             // label10
             // 
@@ -514,6 +585,17 @@
             this.Column17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column17.Width = 28;
             // 
+            // led_EXS
+            // 
+            this.led_EXS.Color = System.Drawing.Color.LavenderBlush;
+            this.led_EXS.Location = new System.Drawing.Point(712, 384);
+            this.led_EXS.Name = "led_EXS";
+            this.led_EXS.On = true;
+            this.led_EXS.Padding = new System.Windows.Forms.Padding(5);
+            this.led_EXS.Size = new System.Drawing.Size(28, 28);
+            this.led_EXS.TabIndex = 25;
+            this.led_EXS.Text = "ledBulb5";
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -523,6 +605,50 @@
             this.label19.Size = new System.Drawing.Size(82, 28);
             this.label19.TabIndex = 24;
             this.label19.Text = "EXSEL";
+            // 
+            // led_EXC
+            // 
+            this.led_EXC.Color = System.Drawing.Color.LavenderBlush;
+            this.led_EXC.Location = new System.Drawing.Point(712, 356);
+            this.led_EXC.Name = "led_EXC";
+            this.led_EXC.On = true;
+            this.led_EXC.Padding = new System.Windows.Forms.Padding(5);
+            this.led_EXC.Size = new System.Drawing.Size(28, 28);
+            this.led_EXC.TabIndex = 23;
+            this.led_EXC.Text = "ledBulb4";
+            // 
+            // led_NT
+            // 
+            this.led_NT.Color = System.Drawing.Color.LavenderBlush;
+            this.led_NT.Location = new System.Drawing.Point(712, 328);
+            this.led_NT.Name = "led_NT";
+            this.led_NT.On = true;
+            this.led_NT.Padding = new System.Windows.Forms.Padding(5);
+            this.led_NT.Size = new System.Drawing.Size(28, 28);
+            this.led_NT.TabIndex = 22;
+            this.led_NT.Text = "ledBulb3";
+            // 
+            // led_CLT
+            // 
+            this.led_CLT.Color = System.Drawing.Color.LavenderBlush;
+            this.led_CLT.Location = new System.Drawing.Point(712, 300);
+            this.led_CLT.Name = "led_CLT";
+            this.led_CLT.On = true;
+            this.led_CLT.Padding = new System.Windows.Forms.Padding(5);
+            this.led_CLT.Size = new System.Drawing.Size(28, 28);
+            this.led_CLT.TabIndex = 21;
+            this.led_CLT.Text = "ledBulb2";
+            // 
+            // led_SRL
+            // 
+            this.led_SRL.Color = System.Drawing.Color.LavenderBlush;
+            this.led_SRL.Location = new System.Drawing.Point(712, 272);
+            this.led_SRL.Name = "led_SRL";
+            this.led_SRL.On = true;
+            this.led_SRL.Padding = new System.Windows.Forms.Padding(5);
+            this.led_SRL.Size = new System.Drawing.Size(28, 28);
+            this.led_SRL.TabIndex = 20;
+            this.led_SRL.Text = "ledBulb1";
             // 
             // label18
             // 
@@ -670,198 +796,6 @@
             this.label5.Size = new System.Drawing.Size(67, 26);
             this.label5.TabIndex = 5;
             this.label5.Text = "VBAT";
-            // 
-            // lb_ELM
-            // 
-            this.lb_ELM.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lb_ELM.Location = new System.Drawing.Point(579, 15);
-            this.lb_ELM.Name = "lb_ELM";
-            this.lb_ELM.Size = new System.Drawing.Size(160, 20);
-            this.lb_ELM.TabIndex = 11;
-            // 
-            // lb_ECUID
-            // 
-            this.lb_ECUID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lb_ECUID.Location = new System.Drawing.Point(579, 41);
-            this.lb_ECUID.Name = "lb_ECUID";
-            this.lb_ECUID.Size = new System.Drawing.Size(160, 20);
-            this.lb_ECUID.TabIndex = 13;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(520, 42);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 16);
-            this.label11.TabIndex = 12;
-            this.label11.Text = "ECU ID";
-            // 
-            // lb_fps
-            // 
-            this.lb_fps.Location = new System.Drawing.Point(675, 73);
-            this.lb_fps.Name = "lb_fps";
-            this.lb_fps.Size = new System.Drawing.Size(64, 16);
-            this.lb_fps.TabIndex = 23;
-            this.lb_fps.Text = "fps";
-            this.lb_fps.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tDecay
-            // 
-            this.tDecay.Interval = 50;
-            this.tDecay.Tick += new System.EventHandler(this.tDecay_Tick);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(385, 51);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(48, 16);
-            this.label20.TabIndex = 24;
-            this.label20.Text = "Target";
-            // 
-            // cbTarget
-            // 
-            this.cbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTarget.FormattingEnabled = true;
-            this.cbTarget.Location = new System.Drawing.Point(385, 70);
-            this.cbTarget.Name = "cbTarget";
-            this.cbTarget.Size = new System.Drawing.Size(138, 24);
-            this.cbTarget.TabIndex = 25;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(388, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "ELM Log";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // rpmText
-            // 
-            this.rpmText.BackColor = System.Drawing.SystemColors.Control;
-            this.rpmText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rpmText.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.rpmText.Location = new System.Drawing.Point(116, 154);
-            this.rpmText.Multiline = true;
-            this.rpmText.Name = "rpmText";
-            this.rpmText.ReadOnly = true;
-            this.rpmText.Size = new System.Drawing.Size(65, 28);
-            this.rpmText.TabIndex = 31;
-            this.rpmText.TextChanged += new System.EventHandler(this.rpmText_TextChanged);
-            // 
-            // tpText
-            // 
-            this.tpText.BackColor = System.Drawing.SystemColors.Control;
-            this.tpText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tpText.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tpText.Location = new System.Drawing.Point(630, 251);
-            this.tpText.Name = "tpText";
-            this.tpText.ReadOnly = true;
-            this.tpText.Size = new System.Drawing.Size(60, 15);
-            this.tpText.TabIndex = 32;
-            this.tpText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tpText.TextChanged += new System.EventHandler(this.tpText_TextChanged);
-            // 
-            // ectText
-            // 
-            this.ectText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ectText.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.ectText.Location = new System.Drawing.Point(470, 251);
-            this.ectText.Name = "ectText";
-            this.ectText.ReadOnly = true;
-            this.ectText.Size = new System.Drawing.Size(60, 15);
-            this.ectText.TabIndex = 33;
-            this.ectText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // iatText
-            // 
-            this.iatText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.iatText.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.iatText.Location = new System.Drawing.Point(310, 251);
-            this.iatText.Name = "iatText";
-            this.iatText.ReadOnly = true;
-            this.iatText.Size = new System.Drawing.Size(60, 15);
-            this.iatText.TabIndex = 34;
-            this.iatText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // iapText
-            // 
-            this.iapText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.iapText.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.iapText.Location = new System.Drawing.Point(57, 377);
-            this.iapText.Name = "iapText";
-            this.iapText.ReadOnly = true;
-            this.iapText.Size = new System.Drawing.Size(100, 15);
-            this.iapText.TabIndex = 35;
-            this.iapText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // led_FAN
-            // 
-            this.led_FAN.Color = System.Drawing.Color.LavenderBlush;
-            this.led_FAN.Location = new System.Drawing.Point(500, 384);
-            this.led_FAN.Name = "led_FAN";
-            this.led_FAN.On = true;
-            this.led_FAN.Padding = new System.Windows.Forms.Padding(5);
-            this.led_FAN.Size = new System.Drawing.Size(28, 28);
-            this.led_FAN.TabIndex = 28;
-            this.led_FAN.Text = "ledBulb1";
-            // 
-            // led_EXS
-            // 
-            this.led_EXS.Color = System.Drawing.Color.LavenderBlush;
-            this.led_EXS.Location = new System.Drawing.Point(712, 384);
-            this.led_EXS.Name = "led_EXS";
-            this.led_EXS.On = true;
-            this.led_EXS.Padding = new System.Windows.Forms.Padding(5);
-            this.led_EXS.Size = new System.Drawing.Size(28, 28);
-            this.led_EXS.TabIndex = 25;
-            this.led_EXS.Text = "ledBulb5";
-            // 
-            // led_EXC
-            // 
-            this.led_EXC.Color = System.Drawing.Color.LavenderBlush;
-            this.led_EXC.Location = new System.Drawing.Point(712, 356);
-            this.led_EXC.Name = "led_EXC";
-            this.led_EXC.On = true;
-            this.led_EXC.Padding = new System.Windows.Forms.Padding(5);
-            this.led_EXC.Size = new System.Drawing.Size(28, 28);
-            this.led_EXC.TabIndex = 23;
-            this.led_EXC.Text = "ledBulb4";
-            // 
-            // led_NT
-            // 
-            this.led_NT.Color = System.Drawing.Color.LavenderBlush;
-            this.led_NT.Location = new System.Drawing.Point(712, 328);
-            this.led_NT.Name = "led_NT";
-            this.led_NT.On = true;
-            this.led_NT.Padding = new System.Windows.Forms.Padding(5);
-            this.led_NT.Size = new System.Drawing.Size(28, 28);
-            this.led_NT.TabIndex = 22;
-            this.led_NT.Text = "ledBulb3";
-            // 
-            // led_CLT
-            // 
-            this.led_CLT.Color = System.Drawing.Color.LavenderBlush;
-            this.led_CLT.Location = new System.Drawing.Point(712, 300);
-            this.led_CLT.Name = "led_CLT";
-            this.led_CLT.On = true;
-            this.led_CLT.Padding = new System.Windows.Forms.Padding(5);
-            this.led_CLT.Size = new System.Drawing.Size(28, 28);
-            this.led_CLT.TabIndex = 21;
-            this.led_CLT.Text = "ledBulb2";
-            // 
-            // led_SRL
-            // 
-            this.led_SRL.Color = System.Drawing.Color.LavenderBlush;
-            this.led_SRL.Location = new System.Drawing.Point(712, 272);
-            this.led_SRL.Name = "led_SRL";
-            this.led_SRL.On = true;
-            this.led_SRL.Padding = new System.Windows.Forms.Padding(5);
-            this.led_SRL.Size = new System.Drawing.Size(28, 28);
-            this.led_SRL.TabIndex = 20;
-            this.led_SRL.Text = "ledBulb1";
             // 
             // aG_TP
             // 
@@ -1396,12 +1330,92 @@
             this.aG_RPM.TabIndex = 0;
             this.aG_RPM.Value = 0F;
             // 
+            // lb_ELM
+            // 
+            this.lb_ELM.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lb_ELM.Location = new System.Drawing.Point(579, 15);
+            this.lb_ELM.Name = "lb_ELM";
+            this.lb_ELM.Size = new System.Drawing.Size(160, 20);
+            this.lb_ELM.TabIndex = 11;
+            // 
+            // lb_ECUID
+            // 
+            this.lb_ECUID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lb_ECUID.Location = new System.Drawing.Point(579, 41);
+            this.lb_ECUID.Name = "lb_ECUID";
+            this.lb_ECUID.Size = new System.Drawing.Size(160, 20);
+            this.lb_ECUID.TabIndex = 13;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(520, 42);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 16);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "ECU ID";
+            // 
+            // lb_fps
+            // 
+            this.lb_fps.Location = new System.Drawing.Point(675, 73);
+            this.lb_fps.Name = "lb_fps";
+            this.lb_fps.Size = new System.Drawing.Size(64, 16);
+            this.lb_fps.TabIndex = 23;
+            this.lb_fps.Text = "fps";
+            this.lb_fps.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // tDecay
+            // 
+            this.tDecay.Interval = 50;
+            this.tDecay.Tick += new System.EventHandler(this.tDecay_Tick);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(385, 51);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(48, 16);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Target";
+            // 
+            // cbTarget
+            // 
+            this.cbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTarget.FormattingEnabled = true;
+            this.cbTarget.Location = new System.Drawing.Point(385, 70);
+            this.cbTarget.Name = "cbTarget";
+            this.cbTarget.Size = new System.Drawing.Size(138, 24);
+            this.cbTarget.TabIndex = 25;
+            // 
+            // ckb_EnableLogging
+            // 
+            this.ckb_EnableLogging.AutoSize = true;
+            this.ckb_EnableLogging.Location = new System.Drawing.Point(380, 12);
+            this.ckb_EnableLogging.Name = "ckb_EnableLogging";
+            this.ckb_EnableLogging.Size = new System.Drawing.Size(76, 20);
+            this.ckb_EnableLogging.TabIndex = 26;
+            this.ckb_EnableLogging.Text = "Logging";
+            this.ckb_EnableLogging.UseVisualStyleBackColor = true;
+            this.ckb_EnableLogging.CheckedChanged += new System.EventHandler(this.ckb_EnableLogging_CheckedChanged);
+            // 
+            // ckb_LogAllCommunication
+            // 
+            this.ckb_LogAllCommunication.AutoSize = true;
+            this.ckb_LogAllCommunication.Location = new System.Drawing.Point(380, 30);
+            this.ckb_LogAllCommunication.Name = "ckb_LogAllCommunication";
+            this.ckb_LogAllCommunication.Size = new System.Drawing.Size(109, 20);
+            this.ckb_LogAllCommunication.TabIndex = 27;
+            this.ckb_LogAllCommunication.Text = "Extended log";
+            this.ckb_LogAllCommunication.UseVisualStyleBackColor = true;
+            this.ckb_LogAllCommunication.CheckedChanged += new System.EventHandler(this.ckb_LogAllCommunication_CheckedChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 526);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ckb_LogAllCommunication);
+            this.Controls.Add(this.ckb_EnableLogging);
             this.Controls.Add(this.cbTarget);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.lb_fps);
@@ -1421,7 +1435,7 @@
             this.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
-            this.Text = "SDS Monitor 1.1";
+            this.Text = "SDS Monitor 1.2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1500,7 +1514,8 @@
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.ComboBox cbTarget;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox ckb_EnableLogging;
+        private System.Windows.Forms.CheckBox ckb_LogAllCommunication;
         private System.Windows.Forms.TextBox rpmText;
         private System.Windows.Forms.TextBox tpText;
         private System.Windows.Forms.TextBox ectText;
@@ -1508,4 +1523,3 @@
         private System.Windows.Forms.TextBox iapText;
     }
 }
-
