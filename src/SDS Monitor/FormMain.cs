@@ -115,6 +115,8 @@ namespace SDS_Monitor
 			m_SystemMenu = SystemMenu.FromForm(this);
 			m_SystemMenu.AppendSeparator();
 			m_SystemMenu.AppendMenu(m_AboutID, "About SDS Monitor");
+
+			ckb_LogAllCommunication.Enabled = ckb_EnableLogging.Checked;
 		}
 
 		System.Threading.Thread th;
@@ -122,7 +124,7 @@ namespace SDS_Monitor
 		private void btn_Connect_Click(object sender, EventArgs e)
 		{
 
-			ElmLogger.ClearLogs();
+			ElmLogger.Configure(ckb_EnableLogging.Checked, ckb_LogAllCommunication.Checked);
 
 			string str;
 
@@ -245,7 +247,11 @@ namespace SDS_Monitor
 			return;
 
 Error:
-			MessageBox.Show("ELM Log: " + Environment.NewLine + Environment.NewLine + ElmLogger.GetLog(), "SDS Monitor - Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			string logPath = ElmLogger.GetCurrentLogPath();
+			if (!string.IsNullOrEmpty(logPath))
+				MessageBox.Show("Initialize Error. ELM log file: " + logPath, "SDS Monitor - Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			else
+				MessageBox.Show("Initialize Error", "SDS Monitor - Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			cb_COMPORT.Enabled = true;
 			btn_Connect.Enabled = true;
 			cbTarget.Enabled = true;
@@ -435,7 +441,7 @@ Close:
 			string tstr = str;
             tstr = tstr.Trim();
             tstr = tstr.Replace("\r", "");
-            ElmLogger.Write($"Request to ELM \t > {tstr} ");
+            ElmLogger.WriteConnection($"Request to ELM \t > {tstr} ");
 
             string rstr = "";
 
@@ -489,7 +495,7 @@ Close:
             trstr = trstr.Replace("\r", " ");
             trstr = trstr.Replace("\0", "");
             trstr = trstr.Replace(">", "");
-            ElmLogger.Write($"Response from ELM \t < {trstr} ");
+            ElmLogger.WriteConnection($"Response from ELM \t < {trstr} ");
 
             return rstr;
 
@@ -503,6 +509,11 @@ Error:
 
         private string ELM_Send(string str)
         {
+            string tstr = str;
+            tstr = tstr.Trim();
+            tstr = tstr.Replace("\r", "");
+            ElmLogger.WriteCommunication($"Request to ELM \t > {tstr} ");
+
             string rstr = "";
 
             if (IsTCP)
@@ -550,6 +561,13 @@ Error:
 
             }
 
+            string trstr = rstr;
+            trstr = trstr.Trim();
+            trstr = trstr.Replace("\r", " ");
+            trstr = trstr.Replace("\0", "");
+            trstr = trstr.Replace(">", "");
+            ElmLogger.WriteCommunication($"Response from ELM \t < {trstr} ");
+
             return rstr;
 
         Error:
@@ -591,6 +609,13 @@ Error:
 			}
 		}
 
+		private void ckb_EnableLogging_CheckedChanged(object sender, EventArgs e)
+		{
+			ckb_LogAllCommunication.Enabled = ckb_EnableLogging.Checked;
+			if (!ckb_EnableLogging.Checked)
+				ckb_LogAllCommunication.Checked = false;
+		}
+
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (IsOpened) btn_Connect_Click(null, null);
@@ -617,11 +642,6 @@ Error:
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-            MessageBox.Show(ElmLogger.GetLog(), "ELM Message log");
-        }
-
 		private void rpmText_TextChanged(object sender, EventArgs e)
 		{
 
@@ -632,7 +652,12 @@ Error:
 
 		}
 
-		protected override void WndProc ( ref Message msg )
+        private void ckb_LogAllCommunication_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void WndProc ( ref Message msg )
 {
    // Now we should catch the WM_SYSCOMMAND message and process it.
    // We override the WndProc to catch the WM_SYSCOMMAND message.
@@ -649,7 +674,7 @@ Error:
          {
             case m_AboutID:
                { // Our about id
-                  MessageBox.Show(this, "SDS Monitor Version 1.1\r\r2026(c) Kashi Electronics Designs\rkashima@kaele.com", "About SDS Monitor");
+                  MessageBox.Show(this, "SDS Monitor Version 1.2\r\r2026(c) Kashi Electronics Designs\rkashima@kaele.com", "About SDS Monitor");
                } break;
 
                // TODO: Add more handles, for more menu items
