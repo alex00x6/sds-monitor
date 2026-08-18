@@ -165,18 +165,18 @@ namespace SDS_Monitor
 				Cursor preCursor = Cursor.Current;
 				Cursor.Current = Cursors.WaitCursor;
 
-				if ((str = ELM_Send_with_log("ATZ\r")) == null) goto Error;
-				if((str = ELM_Send_with_log("ATE0\r")) == null) goto Error;
-                if ((str = ELM_Send_with_log("ATSP5\r")) == null) goto Error;
-                if ((str = ELM_Send_with_log("ATI\r")) == null) goto Error;
+				if ((str = ELM_Send_log_as_connection("ATZ\r")) == null) goto Error;
+				if((str = ELM_Send_log_as_connection("ATE0\r")) == null) goto Error;
+                if ((str = ELM_Send_log_as_connection("ATSP5\r")) == null) goto Error;
+                if ((str = ELM_Send_log_as_connection("ATI\r")) == null) goto Error;
 				lb_ELM.Text = str;
-				if((str = ELM_Send_with_log("ATWM80" + cbTarget.SelectedValue + "F1013E\r")) == null) goto Error;
-				if ((str = ELM_Send_with_log("ATSH81" + cbTarget.SelectedValue + "F1\r")) == null) goto Error;
-                if ((str = ELM_Send_with_log("ATFI\r")) == null) goto Error;
+				if((str = ELM_Send_log_as_connection("ATWM80" + cbTarget.SelectedValue + "F1013E\r")) == null) goto Error;
+				if ((str = ELM_Send_log_as_connection("ATSH81" + cbTarget.SelectedValue + "F1\r")) == null) goto Error;
+                if ((str = ELM_Send_log_as_connection("ATFI\r")) == null) goto Error;
 				if (!str.Contains("OK")) goto Error;
-				if ((str = ELM_Send_with_log("ATSH80" + cbTarget.SelectedValue + "F1\r")) == null) goto Error;
+				if ((str = ELM_Send_log_as_connection("ATSH80" + cbTarget.SelectedValue + "F1\r")) == null) goto Error;
 
-				if ((str = ELM_Send_with_log("1A9A\r")) == null) goto Error;
+				if ((str = ELM_Send_log_as_connection("1A9A\r")) == null) goto Error;
 				string[] data = str.Split(' ');
 				str = "";
 				for (int i = 2; i < 12; i++)
@@ -209,8 +209,8 @@ namespace SDS_Monitor
 
 				sw.Stop();
 				lb_fps.Text = "fps";
-				str = ELM_Send("82\r");
-				str = ELM_Send("ATPC\r");
+				str = ELM_Send_log_as_transmission("82\r");
+				str = ELM_Send_log_as_transmission("ATPC\r");
 
 				for (int r = 0; r < dgv_Data.RowCount; r++)
 				{
@@ -368,7 +368,7 @@ Close:
 
 			while (IsOpened)
 			{
-				str = ELM_Send("2108\r");
+				str = ELM_Send_log_as_transmission("2108\r");
 				if (str == null || str == "BUS ERROR")
 				{
 					MessageBox.Show("ELM BUS ERROR", "SDS Monitor", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -436,7 +436,7 @@ Close:
 			IsOpened = true; return true;
 		}
 
-		private string ELM_Send_with_log(string str)
+		private string ELM_Send_log_as_connection(string str)
 		{
 			string tstr = str;
             tstr = tstr.Trim();
@@ -507,7 +507,7 @@ Error:
 			return (string)null;
 		}
 
-        private string ELM_Send(string str)
+        private string ELM_Send_log_as_transmission(string str)
         {
             string tstr = str;
             tstr = tstr.Trim();
